@@ -20,7 +20,7 @@ function App() {
     if (!newChat.trim()) return;
 
     axios.post('http://localhost:8080/api/chats', {
-      content: newChat
+      text: newChat
     }).then(res => {
       setChats([...chats, res.data]); // 新しいメッセージを追加
       setNewChat(''); // 入力欄をリセット
@@ -33,7 +33,7 @@ function App() {
       <h2>Smart-chat</h2>
       <div>
         {chats.map((msg,index) =>  (
-          <div key={index}>{msg.content}</div>
+          <div key={index}>{msg.text}</div>
         ))}
       </div>
 
