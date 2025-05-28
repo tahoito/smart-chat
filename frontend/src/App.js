@@ -1,52 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-//今まで送ったメッセージ一覧
-const[chats,SetChats] = useState([]);
-//入力欄、入力更新のメッセージ
-const[newChats, SetNewChats] = useState("");
+function App() {
+  //今まで送ったメッセージ一覧
+  const[chats,setChats] = useState([]);
+  //入力欄、入力更新のメッセージ
+  const[newChat, setNewChat] = useState("");
 
-//API呼び出し
-useEffect(() => {
-  axios.get('http://localhost:8080/api/chats')
-    .then(res => setChats(res.data))
-    .catch(err => console.error(err));
-}, []);
+  //API呼び出し
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/chats')
+      .then(res => setChats(res.data))
+      .catch(err => console.error(err));
+  }, []);
 
 
-const handleSend = () => {
-  //空なら送らない
-  if (!newMessage.trim()) return;
+  const handleSend = () => {
+    //空なら送らない
+    if (!newChat.trim()) return;
 
-  axios.get('http://localhost:8080/api/chats', {
-    content: NewChats 
-  }).then(res => {
-    setChats([...messages, res.data]);// 新しいメッセージをリストに追加
-    setChats('');
-  }).catch(err => console.error(err));
-}
+    axios.post('http://localhost:8080/api/chats', {
+      content: newChat
+    }).then(res => {
+      setChats([...chats, res.data]); // 新しいメッセージを追加
+      setNewChat(''); // 入力欄をリセット
+    }).catch(err => console.error(err));
+  };
 
-return(
-  <div style={{ padding: "20px" }}>
+  return(
+    <div style={{ padding: "20px" }}>
 
-    <h2>Smart-chat</h2>
+      <h2>Smart-chat</h2>
+      <div>
+        {chats.map((msg,index) =>  (
+          <div key={index}>{msg.content}</div>
+        ))}
+      </div>
 
-    /** 全メッセージを1つずつ画面に表示 */ 
-    <div>
-      {chats.map((msg,index) =>  (
-        <div key={index}>{msg.content}</div>
-      ))}
+      <input 
+        value = {newChat}
+        onChange = {e => setNewChat(e.target.value)}
+        placeholder="Type a message..."
+      />
+
+      <button onClick={handleSend}>Send</button>
     </div>
 
-    <input 
-      value = {newChat}
-      onChange = {e => setChat(e.target.value)}
-      placeholder="Type a message..."
-    />
-
-    <button onClick={handleSend}>Send</button>
-  </div>
-
-)
+  )
+}
 
 export default App;
