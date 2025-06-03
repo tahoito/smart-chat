@@ -33,9 +33,13 @@ function App() {
 
       <h2>Smart-chat</h2>
       <div>
-        {chats.map((msg,index) =>  (
-          <div key={index}>{msg.text}</div>
+        {chats.map((msg, index) => (
+          <div key={index} style={{ marginBottom: '10px' }}>
+            <div><strong>You:</strong> {msg.text}</div>
+            <div><strong>ChatGPT:</strong> {msg.responseText}</div>
+          </div>
         ))}
+
       </div>
 
       <input 
