@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("api/chats")
 public class ChatController {
@@ -22,6 +23,17 @@ public class ChatController {
     
     @PostMapping
     public Chat createChat(@RequestBody Chat chat){
-        return chatRepository.save(chat);
+
+        //ユーザーのチャットを保存する
+        chat savedChat = chatRepository.save(chat);
+
+        //Botの返信を生成する
+        Chat botReply =  new Chat();
+        botReply.setName("Bot");
+        botReply.setText("こんにちは！お話ししましょう！");
+        botReply.setCreatedAt(LocalDateTime.now());
+
+        chatRepository.save(botReply);
+        return List.of(savedChat,botReply);
     }
 }

@@ -20,7 +20,8 @@ function App() {
     if (!newChat.trim()) return;
 
     axios.post('http://localhost:8080/api/chats', {
-      text: newChat
+      text: newChat,
+      name:"Taho",
     }).then(res => {
       setChats([...chats, res.data]); // 新しいメッセージを追加
       setNewChat(''); // 入力欄をリセット
