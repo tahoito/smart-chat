@@ -9,6 +9,8 @@ import org.springframework.http.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+
 
 @Service
 public class ChatGptService{
@@ -32,7 +34,8 @@ public class ChatGptService{
 
         //postリクエストを送信する
         RestTemplate restTemplate = new RestTemplate();
-        ResponsesEntity<Map> responses = restTemplate.exchange(API_URL,HttpMethod.POST, requestEntity, Map.class);
+        ResponseEntity<Map> response = restTemplate.exchange(API_URL, HttpMethod.POST, requestEntity, Map.class);
+
 
         // 応答からChatGPTの返事を取得
         List<Map<String, Object>> choices = (List<Map<String, Object>>) response.getBody().get("choices");

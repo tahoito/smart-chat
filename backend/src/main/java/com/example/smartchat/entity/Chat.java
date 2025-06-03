@@ -17,14 +17,14 @@ public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "TEXT")
-    
-    private String responseText;
     private Long id;
 
     private String name;
+
     private String text;
 
+    @Column(columnDefinition = "TEXT") // 長めのテキストを扱えるように
+    private String responseText;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }
