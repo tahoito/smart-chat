@@ -4,6 +4,7 @@ import com.example.smartchat.entity.Chat;
 import com.example.smartchat.repository.ChatRepository;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.smartchat.service.ChatGptService;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
