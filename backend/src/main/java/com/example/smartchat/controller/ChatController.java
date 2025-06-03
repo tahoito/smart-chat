@@ -10,11 +10,16 @@ import java.util.List;
 @RestController
 @RequestMapping("api/chats")
 public class ChatController {
-    private final ChatRepository chatRepository;
 
-    public ChatController(ChatRepository chatRepository){
+    private final ChatRepository chatRepository;
+    private final ChatGptService chatGptService; 
+
+
+    public ChatController(ChatRepository chatRepository, ChatGptService chatGptService){
         this.chatRepository = chatRepository; 
+        this.chatGptService = chatGptService; 
     }
+    
 
     @GetMapping
     public List<Chat> getAllChats(){
@@ -23,17 +28,12 @@ public class ChatController {
     
     @PostMapping
     public Chat createChat(@RequestBody Chat chat){
+        // ChatGPTにメッセージを送信して返事をもらう
+        String reply = chatGptService.askChatGpt(chat.getText());
+        // Chatエンティティに返信をセットするならここで
+        System.out.println("GPTの返答: " + reply); // ← 動作確認
 
-        //ユーザーのチャットを保存する
-        chat savedChat = chatRepository.save(chat);
-
-        //Botの返信を生成する
-        Chat botReply =  new Chat();
-        botReply.setName("Bot");
-        botReply.setText("こんにちは！お話ししましょう！");
-        botReply.setCreatedAt(LocalDateTime.now());
-
-        chatRepository.save(botReply);
-        return List.of(savedChat,botReply);
+        // 必要なら保存もできる（今回は送信だけ）
+        return chatRepository.save(chat);
     }
 }
