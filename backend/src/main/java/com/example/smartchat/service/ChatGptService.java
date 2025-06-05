@@ -19,7 +19,7 @@ public class ChatGptService{
 
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
-    public String askChatGPt(String userMessage){
+    public String askChatGpt(String userMessage){
         //requestBodyを生成する
         Map<String,Object> requestBody = new HashMap<>();
         requestBody.put("model", "gpt-3.5-turbo");
