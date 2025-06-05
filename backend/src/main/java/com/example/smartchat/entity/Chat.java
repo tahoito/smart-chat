@@ -28,3 +28,4 @@ public class Chat {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }
+
