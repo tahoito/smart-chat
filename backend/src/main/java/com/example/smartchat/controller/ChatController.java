@@ -37,4 +37,5 @@ public class ChatController {
         // 必要なら保存もできる（今回は送信だけ）
         return chatRepository.save(chat);
     }
+
 }

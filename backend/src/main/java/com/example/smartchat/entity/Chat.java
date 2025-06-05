@@ -27,5 +27,9 @@ public class Chat {
     private String responseText;
 
     private LocalDateTime createdAt = LocalDateTime.now();
-}
 
+    // 👇これをクラスの中に！
+    public String getText() {
+        return this.text;
+    }
+}
